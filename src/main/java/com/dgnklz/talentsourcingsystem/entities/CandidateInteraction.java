@@ -8,6 +8,7 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "candidateInteractions")
@@ -23,6 +24,15 @@ public class CandidateInteraction {
     @JoinColumn(name = "interactionTypeId")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private InteractionType interactionType;
+
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "date")
+    private Date date;
+
+    @Column(name = "candidateResponded")
+    private boolean candidateResponded;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidateId")
