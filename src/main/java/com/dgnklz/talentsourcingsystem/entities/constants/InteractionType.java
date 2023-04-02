@@ -1,6 +1,6 @@
 package com.dgnklz.talentsourcingsystem.entities.constants;
 
-import com.dgnklz.talentsourcingsystem.entities.CadidateInteraction;
+import com.dgnklz.talentsourcingsystem.entities.CandidateInteraction;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,5 +22,5 @@ public class InteractionType {
     private String interactionTypeName;
 
     @OneToMany(mappedBy = "interactionType")
-    private List<CadidateInteraction> cadidateInteractions;
+    private List<CandidateInteraction> candidateInteractions;
 }

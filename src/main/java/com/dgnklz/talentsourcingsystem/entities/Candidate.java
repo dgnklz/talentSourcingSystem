@@ -38,5 +38,5 @@ public class Candidate {
     private CandidateStatus candidateStatus;
 
     @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private CadidateInteraction cadidateInteraction;
+    private CandidateInteraction candidateInteraction;
 }
