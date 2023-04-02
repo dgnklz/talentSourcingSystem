@@ -13,6 +13,7 @@ import com.dgnklz.talentsourcingsystem.core.mapping.ModelMapperService;
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
 import com.dgnklz.talentsourcingsystem.core.results.Result;
 import com.dgnklz.talentsourcingsystem.core.results.SuccessDataResult;
+import com.dgnklz.talentsourcingsystem.core.results.SuccessResult;
 import com.dgnklz.talentsourcingsystem.entities.Candidate;
 import com.dgnklz.talentsourcingsystem.repository.abstracts.CandidateRepository;
 import lombok.AllArgsConstructor;
@@ -56,6 +57,7 @@ public class CandidateManager implements CandidateService {
     public DataResult<UpdateCandidateResponse> update(UpdateCandidateRequest request, int id) {
         checkIfCandidateExistById(id);
         Candidate candidate = mapper.forRequest().map(request, Candidate.class);
+        candidate.setId(id);
         repository.save(candidate);
         UpdateCandidateResponse response = mapper.forResponse().map(candidate, UpdateCandidateResponse.class);
         return new SuccessDataResult<>(response,Messages.Candidate.Updated);
@@ -63,7 +65,9 @@ public class CandidateManager implements CandidateService {
 
     @Override
     public Result delete(int id) {
-        return null;
+        checkIfCandidateExistById(id);
+        repository.deleteById(id);
+        return new SuccessResult(Messages.Candidate.Deleted);
     }
 
     /// DOMAIN RULES \\\

@@ -8,6 +8,7 @@ import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetAllCa
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetCandidateResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.UpdateCandidateResponse;
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
+import com.dgnklz.talentsourcingsystem.core.results.Result;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -33,13 +34,18 @@ public class CandidateController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public DataResult<CreateCandidateResponse> create (@Valid @RequestBody CreateCandidateRequest request) {
+    public DataResult<CreateCandidateResponse> create(@Valid @RequestBody CreateCandidateRequest request) {
         return service.create(request);
     }
 
     @PutMapping("/{id}")
-    public DataResult<UpdateCandidateResponse> update (@Valid @RequestBody UpdateCandidateRequest request, @PathVariable int id) {
+    public DataResult<UpdateCandidateResponse> update(@Valid @RequestBody UpdateCandidateRequest request, @PathVariable int id) {
         return service.update(request, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Result delete (@PathVariable int id) {
+        return service.delete(id);
     }
 
 }
