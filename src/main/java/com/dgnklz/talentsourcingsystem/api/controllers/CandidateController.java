@@ -2,9 +2,11 @@ package com.dgnklz.talentsourcingsystem.api.controllers;
 
 import com.dgnklz.talentsourcingsystem.business.abstracts.CandidateService;
 import com.dgnklz.talentsourcingsystem.business.dto.requests.candidate.CreateCandidateRequest;
+import com.dgnklz.talentsourcingsystem.business.dto.requests.candidate.UpdateCandidateRequest;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.CreateCandidateResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetAllCandidatesResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetCandidateResponse;
+import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.UpdateCandidateResponse;
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +35,11 @@ public class CandidateController {
     @ResponseStatus(code = HttpStatus.CREATED)
     public DataResult<CreateCandidateResponse> create (@Valid @RequestBody CreateCandidateRequest request) {
         return service.create(request);
+    }
+
+    @PutMapping("/{id}")
+    public DataResult<UpdateCandidateResponse> update (@Valid @RequestBody UpdateCandidateRequest request, @PathVariable int id) {
+        return service.update(request, id);
     }
 
 }

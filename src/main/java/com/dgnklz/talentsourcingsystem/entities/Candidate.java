@@ -37,6 +37,6 @@ public class Candidate {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private CandidateStatus candidateStatus;
 
-    @OneToOne(mappedBy = "candidate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "candidate", fetch = FetchType.EAGER)
     private CandidateInteraction candidateInteraction;
 }

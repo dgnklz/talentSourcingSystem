@@ -56,7 +56,6 @@ public class CandidateManager implements CandidateService {
     public DataResult<UpdateCandidateResponse> update(UpdateCandidateRequest request, int id) {
         checkIfCandidateExistById(id);
         Candidate candidate = mapper.forRequest().map(request, Candidate.class);
-        candidate.setId(id);
         repository.save(candidate);
         UpdateCandidateResponse response = mapper.forResponse().map(candidate, UpdateCandidateResponse.class);
         return new SuccessDataResult<>(response,Messages.Candidate.Updated);
