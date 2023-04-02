@@ -1,15 +1,16 @@
 package com.dgnklz.talentsourcingsystem.api.controllers;
 
 import com.dgnklz.talentsourcingsystem.business.abstracts.CandidateService;
+import com.dgnklz.talentsourcingsystem.business.dto.requests.candidate.CreateCandidateRequest;
+import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.CreateCandidateResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetAllCandidatesResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetCandidateResponse;
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,6 +27,12 @@ public class CandidateController {
     @GetMapping("/{id}")
     public DataResult<GetCandidateResponse> getById(@PathVariable int id) {
         return service.getById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public DataResult<CreateCandidateResponse> create (@Valid @RequestBody CreateCandidateRequest request) {
+        return service.create(request);
     }
 
 }

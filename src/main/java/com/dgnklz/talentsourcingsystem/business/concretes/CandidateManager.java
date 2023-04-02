@@ -46,12 +46,20 @@ public class CandidateManager implements CandidateService {
 
     @Override
     public DataResult<CreateCandidateResponse> create(CreateCandidateRequest request) {
-        return null;
+        Candidate candidate = mapper.forRequest().map(request, Candidate.class);
+        repository.save(candidate);
+        CreateCandidateResponse response = mapper.forResponse().map(candidate, CreateCandidateResponse.class);
+        return new SuccessDataResult<>(response, Messages.Candidate.Created);
     }
 
     @Override
     public DataResult<UpdateCandidateResponse> update(UpdateCandidateRequest request, int id) {
-        return null;
+        checkIfCandidateExistById(id);
+        Candidate candidate = mapper.forRequest().map(request, Candidate.class);
+        candidate.setId(id);
+        repository.save(candidate);
+        UpdateCandidateResponse response = mapper.forResponse().map(candidate, UpdateCandidateResponse.class);
+        return new SuccessDataResult<>(response,Messages.Candidate.Updated);
     }
 
     @Override
