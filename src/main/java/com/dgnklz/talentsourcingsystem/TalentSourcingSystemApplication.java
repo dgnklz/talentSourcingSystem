@@ -54,4 +54,11 @@ public class TalentSourcingSystemApplication {
         return errorDataResult;
     }
 
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDataResult<Object> handleDataIntegrityViolationException(DataIntegrityViolationException exception) {
+        ErrorDataResult<Object> errorDataResult = new ErrorDataResult<>(exception.getMessage(), "DATA INTEGRITY VIOLATION EXCEPTION");
+        return errorDataResult;
+    }
+
 }
