@@ -24,17 +24,11 @@ public class CreateCandidateInteractionRequest {
     private String content;
 
     @NotNull
-    @NotBlank
-    @DateTimeFormat(pattern = "dd-mm-yyyy")
-    @JsonFormat(pattern = "dd-mm-yyyy")
     private Date date;
 
     @NotNull
-    @Pattern(regexp = "^(true|false)$", message = ValidationMessages.CandidateInteraction.Responded)
     private boolean candidateResponded;
 
-    @NotNull
-    @NotBlank
     @Min(value = 1, message = ValidationMessages.CandidateInteraction.CandidateIdValueSize)
     private int candidateId;
 }

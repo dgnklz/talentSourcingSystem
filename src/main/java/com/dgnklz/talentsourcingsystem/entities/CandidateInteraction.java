@@ -17,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class CandidateInteraction {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
@@ -36,7 +37,7 @@ public class CandidateInteraction {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidateId")
-    @MapsId
+    //@MapsId
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Candidate candidate;
 }

@@ -4,7 +4,9 @@ import com.dgnklz.talentsourcingsystem.business.abstracts.CandidateInteractionSe
 import com.dgnklz.talentsourcingsystem.business.constants.Messages;
 import com.dgnklz.talentsourcingsystem.business.dto.requests.candidateInteraction.CreateCandidateInteractionRequest;
 import com.dgnklz.talentsourcingsystem.business.dto.requests.candidateInteraction.UpdateCandidateInteractionRequest;
+import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.CreateCandidateResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetCandidateResponse;
+import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.UpdateCandidateResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.CreateCandidateInteractionResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.GetAllCandidateInteractionsResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.GetCandidateInteractionResponse;
@@ -49,12 +51,20 @@ public class CandidateInteractionManager implements CandidateInteractionService 
 
     @Override
     public DataResult<CreateCandidateInteractionResponse> create(CreateCandidateInteractionRequest request) {
-        return null;
+        CandidateInteraction candidateInteraction = mapper.forRequest().map(request, CandidateInteraction.class);
+        repository.save(candidateInteraction);
+        CreateCandidateInteractionResponse response = mapper.forResponse().map(candidateInteraction, CreateCandidateInteractionResponse.class);
+        return new SuccessDataResult<>(response, Messages.CandidateInteraction.Created);
     }
 
     @Override
     public DataResult<UpdateCandidateInteractionResponse> update(UpdateCandidateInteractionRequest request, int id) {
-        return null;
+        checkIfCandidateInteractionExistById(id);
+        CandidateInteraction candidateInteraction = mapper.forRequest().map(request, CandidateInteraction.class);
+        candidateInteraction.setId(id);
+        repository.save(candidateInteraction);
+        UpdateCandidateInteractionResponse response = mapper.forResponse().map(candidateInteraction, UpdateCandidateInteractionResponse.class);
+        return new SuccessDataResult<>(response,Messages.CandidateInteraction.Updated);
     }
 
     @Override
