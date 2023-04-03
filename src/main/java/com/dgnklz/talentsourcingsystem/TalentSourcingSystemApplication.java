@@ -1,10 +1,12 @@
 package com.dgnklz.talentsourcingsystem;
 
+import com.dgnklz.talentsourcingsystem.core.exceptions.BusinessException;
 import com.dgnklz.talentsourcingsystem.core.results.ErrorDataResult;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -43,6 +45,13 @@ public class TalentSourcingSystemApplication {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(ValidationException exception) {
         return new ErrorDataResult<>(exception.getMessage(), "VALIDATION EXCEPTION");
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDataResult<Object> handleBusinessException(BusinessException exception) {
+        ErrorDataResult<Object> errorDataResult = new ErrorDataResult<>(exception.getMessage(), "BUSINESS EXCEPTION");
+        return errorDataResult;
     }
 
 }
