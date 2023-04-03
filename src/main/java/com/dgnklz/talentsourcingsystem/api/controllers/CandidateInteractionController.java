@@ -9,6 +9,7 @@ import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteracti
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.GetCandidateInteractionResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.UpdateCandidateInteractionResponse;
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
+import com.dgnklz.talentsourcingsystem.core.results.Result;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,10 @@ public class CandidateInteractionController {
     @PutMapping("/{id}")
     public DataResult<UpdateCandidateInteractionResponse> update(@Valid @RequestBody UpdateCandidateInteractionRequest request, @PathVariable int id) {
         return service.update(request, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public Result delete(@PathVariable int id) {
+        return service.delete(id);
     }
 }

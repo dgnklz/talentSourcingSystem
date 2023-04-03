@@ -44,7 +44,7 @@ public class CandidateController {
     }
 
     @DeleteMapping("/{id}")
-    public Result delete (@PathVariable int id) {
+    public Result delete(@PathVariable int id) {
         return service.delete(id);
     }
 
