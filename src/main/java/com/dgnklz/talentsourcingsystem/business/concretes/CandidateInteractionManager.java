@@ -29,6 +29,7 @@ import java.util.List;
 public class CandidateInteractionManager implements CandidateInteractionService {
     private ModelMapperService mapper;
     private CandidateInteractionRepository repository;
+    private CandidateManager candidateManager;
 
 
     @Override
@@ -51,6 +52,7 @@ public class CandidateInteractionManager implements CandidateInteractionService 
 
     @Override
     public DataResult<CreateCandidateInteractionResponse> create(CreateCandidateInteractionRequest request) {
+        checkIfCandidateExistById(request.getCandidateId());
         CandidateInteraction candidateInteraction = mapper.forRequest().map(request, CandidateInteraction.class);
         repository.save(candidateInteraction);
         CreateCandidateInteractionResponse response = mapper.forResponse().map(candidateInteraction, CreateCandidateInteractionResponse.class);
@@ -60,6 +62,7 @@ public class CandidateInteractionManager implements CandidateInteractionService 
     @Override
     public DataResult<UpdateCandidateInteractionResponse> update(UpdateCandidateInteractionRequest request, int id) {
         checkIfCandidateInteractionExistById(id);
+        checkIfCandidateExistById(request.getCandidateId());
         CandidateInteraction candidateInteraction = mapper.forRequest().map(request, CandidateInteraction.class);
         candidateInteraction.setId(id);
         repository.save(candidateInteraction);
@@ -78,5 +81,9 @@ public class CandidateInteractionManager implements CandidateInteractionService 
         if(!repository.existsById(id)) {
             throw new BusinessException(Messages.CandidateInteraction.NotExist);
         }
+    }
+
+    private void checkIfCandidateExistById(int id) {
+        candidateManager.getById(id);
     }
 }
