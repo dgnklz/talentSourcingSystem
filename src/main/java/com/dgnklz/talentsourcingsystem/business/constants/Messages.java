@@ -10,4 +10,12 @@ public class Messages {
 
         public static final String NotExist = "The Candidate is not exist";
     }
+
+    public static class CandidateInteraction {
+        public static final String AllListed = "All Interactions Listed";
+        public static final String ListedById = "Interaction Listed By Id";
+        public static final String Created = "Interaction Created";
+        public static final String Updated = "Interaction Updated";
+        public static final String Deleted = "Interaction Deleted";
+    }
 }
