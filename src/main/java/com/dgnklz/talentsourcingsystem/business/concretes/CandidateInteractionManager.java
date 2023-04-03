@@ -4,14 +4,17 @@ import com.dgnklz.talentsourcingsystem.business.abstracts.CandidateInteractionSe
 import com.dgnklz.talentsourcingsystem.business.constants.Messages;
 import com.dgnklz.talentsourcingsystem.business.dto.requests.candidateInteraction.CreateCandidateInteractionRequest;
 import com.dgnklz.talentsourcingsystem.business.dto.requests.candidateInteraction.UpdateCandidateInteractionRequest;
+import com.dgnklz.talentsourcingsystem.business.dto.responses.candidate.GetCandidateResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.CreateCandidateInteractionResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.GetAllCandidateInteractionsResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.GetCandidateInteractionResponse;
 import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteraction.UpdateCandidateInteractionResponse;
+import com.dgnklz.talentsourcingsystem.core.exceptions.BusinessException;
 import com.dgnklz.talentsourcingsystem.core.mapping.ModelMapperService;
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
 import com.dgnklz.talentsourcingsystem.core.results.Result;
 import com.dgnklz.talentsourcingsystem.core.results.SuccessDataResult;
+import com.dgnklz.talentsourcingsystem.entities.Candidate;
 import com.dgnklz.talentsourcingsystem.entities.CandidateInteraction;
 import com.dgnklz.talentsourcingsystem.repository.abstracts.CandidateInteractionRepository;
 import lombok.AllArgsConstructor;
@@ -38,7 +41,10 @@ public class CandidateInteractionManager implements CandidateInteractionService 
 
     @Override
     public DataResult<GetCandidateInteractionResponse> getById(int id) {
-        return null;
+        checkIfCandidateInteractionExistById(id);
+        CandidateInteraction candidateInteraction = repository.findById(id).orElseThrow();
+        GetCandidateInteractionResponse response = mapper.forResponse().map(candidateInteraction, GetCandidateInteractionResponse.class);
+        return new SuccessDataResult<>(response, Messages.CandidateInteraction.ListedById);
     }
 
     @Override
@@ -54,5 +60,13 @@ public class CandidateInteractionManager implements CandidateInteractionService 
     @Override
     public Result delete(int id) {
         return null;
+    }
+
+    /// DOMAIN RULES \\\
+
+    private void checkIfCandidateInteractionExistById(int id) {
+        if(!repository.existsById(id)) {
+            throw new BusinessException(Messages.CandidateInteraction.NotExist);
+        }
     }
 }

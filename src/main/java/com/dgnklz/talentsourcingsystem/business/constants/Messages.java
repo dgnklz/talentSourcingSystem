@@ -17,5 +17,7 @@ public class Messages {
         public static final String Created = "Interaction Created";
         public static final String Updated = "Interaction Updated";
         public static final String Deleted = "Interaction Deleted";
+
+        public static final String NotExist = "The Candidate Interaction is not exist";
     }
 }

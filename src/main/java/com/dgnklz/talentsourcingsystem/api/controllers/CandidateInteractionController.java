@@ -6,6 +6,7 @@ import com.dgnklz.talentsourcingsystem.business.dto.responses.candidateInteracti
 import com.dgnklz.talentsourcingsystem.core.results.DataResult;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,5 +21,10 @@ public class CandidateInteractionController {
     @GetMapping
     public DataResult<List<GetAllCandidateInteractionsResponse>> getAll() {
         return service.getAll();
+    }
+
+    @GetMapping("/{id}")
+    public DataResult<GetCandidateInteractionResponse> getById(@PathVariable int id) {
+        return service.getById(id);
     }
 }
